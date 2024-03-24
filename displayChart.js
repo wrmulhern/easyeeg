@@ -1,28 +1,33 @@
 
 // Listen for the custom event indicating that globalData is loaded. This function
 // will initialize the chart
-document.addEventListener('globalDataLoaded', function() {
+document.addEventListener('globalDataOneLoaded', function() {
     // Ensure there's data to process
     if (!window.globalAllData || window.globalAllData.length === 0) {
         console.error('globalData is not loaded or is empty');
-        return;
     }
+
+    //allows first initialization of chart to not check globalAllData
+    //since it isn't fully loaded
+    window.chartUpdates = 0;
 
     //default values for custom config variables
     //index of currently selected dataset
     window.selectedDataset = 0;
     //currently displayed dataset
-    window.globalData = window.globalAllData[window.selectedDataset];
+    // window.globalData = window.globalAllData[window.selectedDataset];
     //left bound of data shown
     window.sliceLeft = 0;
     //right bound of data shown (data is shown to sliceRight - 1)
     window.sliceRight = 200;
     //table to determine which nodes will be displayed (default to all true)
-    window.nodes = Array.from({length: window.globalAllData[1][0].length}, (item, index) => true);
+    window.nodes = Array.from({length: 22}, (item, index) => true);
+    console.log(window.nodes);
     // percent of values shown (default to 100)
     window.percent = 100;
-    // animations (default true);
-    window.animation = true;
+    // animations (default true), however is initially set to false so
+    // that first load doesn't lag. Second update of chart sets it back to default true
+    window.animation = false;
 
 
     document.dispatchEvent(new CustomEvent('updateChart'));
@@ -111,7 +116,13 @@ document.addEventListener('updateChart', function() {
     }
 
     //setting used dataset to selected dataset
-    window.globalData = window.globalAllData[window.selectedDataset];
+    if(window.chartUpdates != 0){
+        window.globalData = window.globalAllData[window.selectedDataset];
+    }
+    if(window.chartUpdates == 1){
+        window.animation = true;
+    }
+    window.chartUpdates++;
 
     
 

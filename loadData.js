@@ -9,6 +9,7 @@
 
     var allData = [];
 
+    let index = 0;
     for(const name of dataSources){
         //loading data
         const orig = await fetch(`data/${name}.csv`);
@@ -21,12 +22,18 @@
             trimData = await trimData.map(row => row.slice(0,row.length - 1));
         }
 
+        if(index == 0){
+            window.globalData = trimData;
+            document.dispatchEvent(new CustomEvent('globalDataOneLoaded'));
+            console.log('first data loaded');
+        }
+        index++;
+
         allData.push(trimData);
-        // window.globalDataSize = trimData.length;
     }
 
     window.globalAllData = allData;
     console.log(window.globalAllData);
-    document.dispatchEvent(new CustomEvent('globalDataLoaded'));
-    console.log('data loaded');
+    // document.dispatchEvent(new CustomEvent('globalDataLoaded'));
+    console.log('All data loaded');
 })();
