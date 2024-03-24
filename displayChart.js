@@ -52,6 +52,9 @@ document.addEventListener('updateChart', function() {
 
     //creates chart if it doesn't already exist
     if(window.chartReference == undefined){
+
+        let fontColor = '#fff';
+        let gridColor = '#777'
         
         // Creating chart and assigning it to 'eeg' canvas
         // also adds reference to chart pointer to a window variable
@@ -112,6 +115,29 @@ document.addEventListener('updateChart', function() {
         // //adding titleColor if it isn't null
         // if(titleColor != null){
         //     window.chartReference.options.plugins.title.color = titleColor;
+        // }
+
+
+
+
+         // //adding fontColor if it is not null
+        // // console.log(`fontColor: ${fontColor}, gridColor: ${gridColor}, titleColor: ${titleColor}`);
+        // if(fontColor != null){
+            window.chartReference.options.plugins.legend.labels.color = fontColor;
+            window.chartReference.options.scales.x.ticks.color = fontColor;
+            window.chartReference.options.scales.x.title.color = fontColor;
+            window.chartReference.options.scales.y.ticks.color = fontColor;
+            window.chartReference.options.scales.y.title.color = fontColor;
+            
+        // }
+        // //adding gridColor if it isn't null
+        // if(gridColor != null){
+            window.chartReference.options.scales.x.grid.color = gridColor;
+            window.chartReference.options.scales.y.grid.color = gridColor;
+        // }
+        // //adding titleColor if it isn't null
+        // if(titleColor != null){
+            window.chartReference.options.plugins.title.color = fontColor;
         // }
     }
 
