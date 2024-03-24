@@ -28,4 +28,5 @@
     window.globalAllData = allData;
     console.log(window.globalAllData);
     document.dispatchEvent(new CustomEvent('globalDataLoaded'));
+    console.log('data loaded');
 })();
